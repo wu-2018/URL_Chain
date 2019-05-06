@@ -1,0 +1,23 @@
+#!/data/data/com.termux/files/usr/bin/python
+
+import os
+import sys
+content = sys.argv[1]
+#print(content[:-1])
+actions = {
+        '1':'crawler()',
+        '2':'qrcode()'
+        }
+
+def crawler():
+    cmd1 = 'echo `date` %s >>work/index.html'%repr(content[:-1])
+    os.system(cmd1)
+    cmd2 = 'python work/tool/wechat_crawler.py %s'%repr(content[:-1])
+    #print(cmd2)
+    os.system(cmd2)
+
+def qrcode():
+    cmd2 = 'qrencode %s -o a.png;termux-open a.png'%repr(content[:-1])
+    os.system(cmd2)
+exec(actions[content[-1]])
+print("finished".center(15, "*"))
